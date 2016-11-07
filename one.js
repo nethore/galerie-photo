@@ -32,7 +32,7 @@
 
 
     // Ma recherche
-    // 
+    //
 
 
     $('input#search').keyup(function(){
@@ -40,10 +40,20 @@
       console.log("Keyup");
 
       var filtre = $('input#search').val();
-      var filterValue = $('.grid-item').find('img').attr('alt');
-      var regexSearch = new RegExp(filtre,'i')
-      console.log(filterValue);
-      $grid.isotope({ filter: filterValue });
+      var regexSearch = new RegExp(filtre,'i');
+
+      console.log(filtre);
+      console.log(regexSearch);
+
+
+      $grid.isotope({
+        // filter element with numbers greater than 50
+        filter: function() {
+          var filterValue = $(this).find('img').attr('alt');
+          // return true to show, false to hide
+          return regexSearch.test(filterValue);
+        }
+      });
 
     });
 
